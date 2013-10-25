@@ -16,6 +16,7 @@
 }
 
 -(GridGenerator*) init;
+-(GridGenerator*) testInit;
 -(NSString*) createInitialGrid;
 
 @end

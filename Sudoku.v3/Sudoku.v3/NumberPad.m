@@ -7,7 +7,7 @@
 //
 
 #import "NumberPad.h"
-#import "NumberPadCell.h"
+#import "BNCViewController.h"
 
 @implementation NumberPad
 
@@ -48,15 +48,22 @@
 
 -(void)updateNumPadCellHighlighted:(id)sender
 {
-    NumberPadCell* numberPressed = sender;
     [[numPadButtons objectAtIndex:highlightedButtonIndex] setBackgroundColor:[UIColor whiteColor]];
-    [numberPressed setBackgroundColor:[UIColor yellowColor]];
-    if ([[numberPressed titleLabel] isEqual: @"erase"]) {
+    [sender setBackgroundColor:[UIColor yellowColor]];
+    if ([[sender titleLabel] isEqual: @"erase"])
+    {
         highlightedButtonIndex = 0;
     }
-    else {
-        highlightedButtonIndex = [[numberPressed titleLabel].text intValue];
+    else
+    {
+        highlightedButtonIndex = [[sender titleLabel].text intValue];
     }
+    [myOwner updateNumPadCellHighlighted:sender];
+}
+
+-(void) setOwner:(BNCViewController *)controller
+{
+    myOwner = controller;
 }
 
 /*

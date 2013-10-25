@@ -14,7 +14,11 @@
 {
     self = [super initWithFrame: frame];
     if (self) {
-        [self setTitle:[NSString stringWithFormat:@"%d",value] forState:UIControlStateNormal];
+        if (value != 0)
+        {
+            [self setTitle:[NSString stringWithFormat:@"%d",value] forState:UIControlStateNormal];
+        }
+        self.titleLabel.font = [UIFont systemFontOfSize:(30)];
         [self setTitleColor:titleColor forState:UIControlStateNormal];
         [self addTarget:self.superview action:@selector(changeValue:) forControlEvents:UIControlEventTouchUpInside];
         colNumber = col;

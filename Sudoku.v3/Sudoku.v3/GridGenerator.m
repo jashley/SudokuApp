@@ -12,10 +12,21 @@
 
 -(GridGenerator*) init
 {
-    gameNumber = 0;
     NSString* path = [[NSBundle mainBundle] pathForResource:@"sudokus0" ofType:@"txt"];
     NSError* error;
     NSString* bigString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error: &error];
+    int numGames = [bigString length]/81;
+    gameNumber = arc4random()%numGames;
+    sudokus = [bigString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n"]];
+    return self;
+}
+
+-(GridGenerator*) testInit
+{
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"sudokus0" ofType:@"txt"];
+    NSError* error;
+    NSString* bigString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error: &error];
+    gameNumber = 0;
     sudokus = [bigString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n"]];
     return self;
 }

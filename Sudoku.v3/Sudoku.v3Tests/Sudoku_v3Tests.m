@@ -15,8 +15,11 @@
     [super setUp];
     
     // Set-up code here.
-    gridGeneratorTest = [[GridGenerator alloc] init];
+    gridGeneratorTest = [[GridGenerator alloc] testInit];
     modelTest = [[Model alloc] init: gridGeneratorTest];
+    
+    STAssertNotNil(gridGeneratorTest, @"gridGeneratorTest was not initialized properly");
+    STAssertNotNil(modelTest, @"modelTest was not initialized properfly");
     
 }
 

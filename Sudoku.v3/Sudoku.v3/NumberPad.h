@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NumberPadCell.h"
+
+@class BNCViewController;
 
 @interface NumberPad : UIView
 {
     NSMutableArray* numPadButtons;
     int highlightedButtonIndex;
+    BNCViewController* myOwner;
 }
 
--(void) highlightPressed: (id) sender;
 -(void)updateNumPadCellHighlighted: (id)sender;
+-(void) setOwner: (BNCViewController*) controller;
 
 @end

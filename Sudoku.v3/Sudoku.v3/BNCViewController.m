@@ -36,18 +36,56 @@
     //create the board
     theGrid = [[Grid alloc] initWithFrame:gridFrame];
     [self.view addSubview:theGrid];
+    [theGrid setOwner:self];
     
     theNumberPad = [[NumberPad alloc] initWithFrame:numPadFrame];
     [self.view addSubview:theNumberPad];
+    [theNumberPad setOwner:self];
     
-    GridGenerator* x = [[GridGenerator alloc] init];
-    [x createInitialGrid];
+    theGridGenerator = [[GridGenerator alloc] init];
+    
+    theModel = [[Model alloc] init:theGridGenerator];
+    
+    numberHighlighted = @"erase";
+    
+    for (int r=0; r<9; r++)
+    {
+        for (int c=0; c<9; c++)
+        {
+            int val = [theModel getValueAtRow:r andColumn:c];
+            BOOL initial = [theModel isInitialValueAtRow:r andColumn:c];
+            
+            if (initial)
+            {
+                [theGrid setInitialValueAtRow:r andColumn:c andValue:val];
+            }
+        }
+    }
     
 }
 
 -(NSString*)gridCellTap: (id)sender
 {
-    
+    int row = [sender getRowNumber];
+    int col = [sender getColNumber];
+    int numericValue;
+    if ([numberHighlighted isEqualToString:@"erase"])
+    {
+        numericValue = 0;
+    }
+    else
+    {
+        numericValue = [numberHighlighted intValue];
+    }
+    if ([theModel consistentAtRow:row andCol:col andValue:numberHighlighted])
+    {
+        [theModel setValueAtRow:row andColumn:col andValue:numericValue];
+        return numberHighlighted;
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"%d",[theModel getValueAtRow:row andColumn:col]];
+    }
 }
 
 -(void)updateNumPadCellHighlighted:(id)sender

@@ -7,7 +7,7 @@
 //
 
 #import "Grid.h"
-#import "GridCell.h"
+#import "BNCViewController.h"
 
 @implementation Grid
 
@@ -26,20 +26,11 @@
         
         buttons = [[NSMutableArray alloc] init];
         
-        int fakeNumbers[] = {0,0,0,0,2,0,0,3,7,4,0,7,6,0,0,0,8,0,5,0,2,4,0,7,0,0,1,8,0,6,3,0,0,0,5,0,3,0,4,0,6,0,0,1,8,0,1,0,0,5,0,0,0,6,6,0,0,0,7,0,0,0,0,0,0,0,9,0,0,0,0,5,0,9,8,0,0,6,0,0,0};
-        
         // create the buttons and add them as subviews
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                GridCell* x;
-                if (fakeNumbers[i*9+j] != 0) {
-                    x = [[GridCell alloc] initWithFrame:buttonFrame andValue:fakeNumbers[i*9+j] andTitleColor:[UIColor blueColor] andColNumber:j andRowNumber:i];
-                }
-                else {
-                    x = [[GridCell alloc] initWithFrame:buttonFrame andValue:0 andTitleColor:[UIColor blackColor] andColNumber:j andRowNumber:i];
-                    [x setTitle:nil forState:UIControlStateNormal]; //cheating
-                }
-                x.backgroundColor = [UIColor whiteColor];
+                GridCell* x =[[GridCell alloc] initWithFrame:buttonFrame andValue:0 andTitleColor:[UIColor blackColor] andColNumber:j andRowNumber:i];
+                [x setBackgroundColor:[UIColor whiteColor]];
                 [buttons insertObject:x atIndex:(i*9 + j)];
                 [self addSubview:[buttons objectAtIndex:(i*9 + j)]];
                 if (j == 8) {
@@ -68,8 +59,28 @@
 
 -(void) changeValue: (id) sender
 {
-    BNCViewController* x = [BNCViewController alloc];
-    [x gridCellTap:sender];
+    NSString* setValue = [myOwner gridCellTap:sender];
+    if ([setValue isEqualToString:@"erase"] || [setValue isEqualToString:@"0"])
+    {
+        [sender setTitle:nil forState:UIControlStateNormal];
+    }
+    else
+    {
+        [sender setTitle:setValue forState:UIControlStateNormal];
+    }
+
+}
+
+-(void) setInitialValueAtRow:(int)row andColumn:(int)column andValue:(int)value
+{
+    GridCell* x = [buttons objectAtIndex:(row*9 + column)];
+    [x setTitle: [NSString stringWithFormat:@"%d",value] forState:UIControlStateNormal];
+    [x setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+}
+     
+-(void) setOwner:(BNCViewController *)controller
+{
+    myOwner = controller;
 }
 
 

@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "GridCell.h"
-#import "BNCViewController.h"
+
+@class BNCViewController;
 
 @interface Grid : UIView
 {
     NSMutableArray* buttons;
+    BNCViewController* myOwner;
 }
-
--(void) changeValue: (id) sender;
+-(id)initWithFrame:(CGRect)frame;
+//-(void) changeValue: (id) sender;
+-(void) setInitialValueAtRow: (int)row andColumn: (int) column andValue: (int) value;
+-(void) setOwner: (BNCViewController*) controller;
 
 @end

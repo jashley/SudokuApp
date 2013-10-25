@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GridCell.h"
 #import "GridGenerator.h"
 
 @interface Model : NSObject
@@ -18,6 +17,8 @@
 
 -(Model*) init: (GridGenerator*) gridGenerator;
 -(void) setValueAtRow: (int) rowNumber andColumn: (int) colNumber andValue: (int) value;
+-(int) getValueAtRow: (int)rowNumber andColumn: (int)colNumber;
+-(BOOL) isInitialValueAtRow: (int)rowNumber andColumn: (int)colNumber;
 -(BOOL) consistentAtRow: (int) row andCol: (int) col andValue: (NSString*) value;
 
 @end

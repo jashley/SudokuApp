@@ -8,17 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "Grid.h"
-#import "GridCell.h"
 #import "NumberPad.h"
-#import "GridGenerator.h"
+#import "Model.h"
 
 @interface BNCViewController : UIViewController
 {
-    UIView* theGrid;
-    UIView* theNumberPad;
+    Grid* theGrid;
+    NumberPad* theNumberPad;
     NSString* numberHighlighted;
+    GridGenerator* theGridGenerator;
+    Model* theModel;
 }
--(NSString *)gridCellTap: (id)sender;
+-(NSString*)gridCellTap: (id)sender;
 -(void)updateNumPadCellHighlighted: (id)sender;
 
 @end
